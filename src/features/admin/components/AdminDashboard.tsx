@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { toast } from "sonner";
 import { Icon } from "@/components/ui/icon";
+import { WzModal } from "@/components/ui/wz-modal";
+import { WzButton } from "@/components/ui/wz-button";
 import { MetricCard } from "./MetricCard";
 import { AppForm } from "./AppForm";
 import { GenreManager } from "./GenreManager";
@@ -11,10 +14,26 @@ import type { GameApp } from "@/features/catalog/types";
 
 export function AdminDashboard() {
   const { isAdmin, apps, genres, editingApp, setEditingApp, logout } = useStore();
+  const [formOpen, setFormOpen] = useState(false);
 
   if (!isAdmin) return <AdminLogin />;
 
   const featuredCount = apps.filter((a) => a.isFeatured).length;
+
+  const openNewForm = () => {
+    setEditingApp(null);
+    setFormOpen(true);
+  };
+
+  const openEditForm = (app: GameApp) => {
+    setEditingApp(app);
+    setFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setFormOpen(false);
+    setEditingApp(null);
+  };
 
   const removeApp = async (app: GameApp) => {
     if (!confirm(`Excluir "${app.title}"?`)) return;
@@ -62,12 +81,10 @@ export function AdminDashboard() {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start">
         <div className="space-y-6">
-          <div>
-            <h2 className="mb-3 text-lg font-bold">
-              {editingApp ? `Editando: ${editingApp.title}` : "Publicar novo jogo"}
-            </h2>
-            <AppForm genres={genres} editing={editingApp} onDone={() => setEditingApp(null)} />
-          </div>
+          <WzButton size="md" onClick={openNewForm}>
+            <Icon name="add" size={18} />
+            Publicar novo jogo
+          </WzButton>
 
           <section className="rounded-2xl border border-border bg-surface p-5">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-bold tracking-wide uppercase">
@@ -106,7 +123,7 @@ export function AdminDashboard() {
                       label="Reenviar aviso no Discord"
                       onClick={() => void resendApp(app)}
                     />
-                    <IconBtn icon="edit" label="Editar" onClick={() => setEditingApp(app)} />
+                    <IconBtn icon="edit" label="Editar" onClick={() => openEditForm(app)} />
                     <IconBtn
                       icon="delete"
                       label="Excluir"
@@ -124,6 +141,15 @@ export function AdminDashboard() {
           <GenreManager genres={genres} />
         </div>
       </div>
+
+      <WzModal open={formOpen} onClose={closeForm} labelledBy="app-form-title">
+        <div className="max-h-[88vh] overflow-y-auto p-5 sm:p-8">
+          <h2 id="app-form-title" className="mb-5 text-xl font-extrabold">
+            {editingApp ? `Editando: ${editingApp.title}` : "Publicar novo jogo"}
+          </h2>
+          <AppForm genres={genres} editing={editingApp} onDone={closeForm} />
+        </div>
+      </WzModal>
     </div>
   );
 }
