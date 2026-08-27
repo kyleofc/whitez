@@ -1,0 +1,183 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * WhiteZ Android — Design System
+ * Dark premium: grafite profundo + crimson.
+ * Todos os valores de cor em oklch, expostos como tokens semânticos.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.4), 0 8px 24px -12px oklch(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.35), 0 24px 48px -20px oklch(0 0 0 / 0.75);
+  --shadow-glow: 0 8px 30px -8px oklch(0.55 0.223 21 / 0.45);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --background: oklch(0.145 0.006 300);
+  --foreground: oklch(0.95 0.004 300);
+  --surface: oklch(0.185 0.007 300);
+  --surface-2: oklch(0.225 0.008 300);
+  --surface-3: oklch(0.27 0.009 300);
+  --card: oklch(0.19 0.007 300);
+  --card-foreground: oklch(0.95 0.004 300);
+  --popover: oklch(0.21 0.008 300);
+  --popover-foreground: oklch(0.95 0.004 300);
+  --primary: oklch(0.577 0.223 21);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-soft: oklch(0.42 0.14 21);
+  --secondary: oklch(0.24 0.008 300);
+  --secondary-foreground: oklch(0.95 0.004 300);
+  --muted: oklch(0.24 0.008 300);
+  --muted-foreground: oklch(0.68 0.008 300);
+  --accent: oklch(0.28 0.01 300);
+  --accent-foreground: oklch(0.97 0.004 300);
+  --destructive: oklch(0.6 0.21 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --border-strong: oklch(1 0 0 / 16%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.577 0.223 21);
+  --sidebar: oklch(0.165 0.007 300);
+  --sidebar-foreground: oklch(0.95 0.004 300);
+  --sidebar-primary: oklch(0.577 0.223 21);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.24 0.008 300);
+  --sidebar-accent-foreground: oklch(0.97 0.004 300);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.577 0.223 21);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+    scrollbar-color: var(--surface-3) transparent;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Rounded", "Material Symbols Outlined";
+
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility surface-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+}
+
+@utility glass-bar {
+  background-color: color-mix(in oklab, var(--background) 78%, transparent);
+  backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid var(--border);
+}
+
+@utility text-gradient-primary {
+  background: linear-gradient(
+    100deg,
+    var(--foreground) 10%,
+    color-mix(in oklab, var(--primary) 85%, white) 90%
+  );
+  background-clip: text;
+  color: transparent;
+}
