@@ -19,10 +19,7 @@ export function AppShell() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <AppHeader onOpenSidebar={() => setSidebarOpen(true)} />
-      <AppSidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      <AppSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <main className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-6 sm:py-8">
         {section === "home" ? <DiscoverPage /> : null}

@@ -13,6 +13,8 @@ const NAV: { id: SectionId; label: string; icon: string }[] = [
   { id: "favorites", label: "Favoritos", icon: "favorite" },
 ];
 
+const DISCORD_URL = "https://discord.gg/sZBr22sdzy";
+
 export function AppSidebar({ open, onClose }: AppSidebarProps) {
   const { section, setSection, isAdmin, adminUnlocked, logout } = useStore();
 
@@ -64,6 +66,17 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
               onClick={() => go(item.id)}
             />
           ))}
+
+          <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2.5 text-sm font-bold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] active:scale-95"
+          >
+            <Icon name="forum" size={20} />
+            Discord
+          </a>
+
           {adminUnlocked || isAdmin ? (
             <SidebarLink
               id="admin"
