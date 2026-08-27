@@ -7,7 +7,10 @@ import { createApp, updateApp } from "@/features/catalog/api";
 import { announceOnDiscord } from "@/features/admin/discordWebhook";
 import type { DownloadLink, GameApp, Genre } from "@/features/catalog/types";
 
-const ARCHS = ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"];
+const ARCHS: { value: string; label: string }[] = [
+  { value: "32", label: "32 BITS" },
+  { value: "64", label: "64 BITS" },
+];
 
 interface AppFormProps {
   genres: Genre[];
@@ -130,21 +133,21 @@ export function AppForm({ genres, editing, onDone }: AppFormProps) {
 
       <FormSection title="Compatibilidade" icon="memory">
         <div className="flex flex-wrap gap-2">
-          {ARCHS.map((arch) => {
-            const active = architecture.includes(arch);
+          {ARCHS.map(({ value, label }) => {
+            const active = architecture.includes(value);
             return (
               <button
                 type="button"
-                key={arch}
+                key={value}
                 aria-pressed={active}
-                onClick={() => toggleArch(arch)}
+                onClick={() => toggleArch(value)}
                 className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
                   active
                     ? "border-primary bg-primary/12 text-primary"
                     : "border-border bg-surface-2 text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {arch}
+                {label}
               </button>
             );
           })}
