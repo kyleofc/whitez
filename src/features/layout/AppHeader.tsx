@@ -69,7 +69,7 @@ export function AppHeader({ onOpenSidebar }: AppHeaderProps) {
           >
             <Icon name="favorite" size={20} />
           </button>
-          <div className="hidden sm:block">
+          <div className="hidden items-center gap-2 sm:flex">
             <GenreFilter
               genres={genres}
               active={activeGenre}
@@ -77,6 +77,13 @@ export function AppHeader({ onOpenSidebar }: AppHeaderProps) {
               open={genreOpen}
               onOpenChange={setGenreOpen}
             />
+            <a href="https://monetiza.link/ref/107939243575193274106" rel="nofollow" target="_blank">
+              <img
+                src="https://i.ibb.co/hMHbDyh/monetizalink728x90.png"
+                alt="MonetizaLink"
+                className="h-10 w-auto rounded-lg object-contain"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -89,6 +96,18 @@ export function AppHeader({ onOpenSidebar }: AppHeaderProps) {
           open={genreOpen}
           onOpenChange={setGenreOpen}
         />
+        <a
+          href="https://monetiza.link/ref/107939243575193274106"
+          rel="nofollow"
+          target="_blank"
+          className="shrink-0"
+        >
+          <img
+            src="https://i.ibb.co/hMHbDyh/monetizalink728x90.png"
+            alt="MonetizaLink"
+            className="h-9 w-auto rounded-lg object-contain"
+          />
+        </a>
       </div>
     </header>
   );
