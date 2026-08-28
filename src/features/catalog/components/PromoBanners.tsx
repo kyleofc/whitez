@@ -22,7 +22,6 @@ function usePromos(): Promo[] {
   return promos;
 }
 
-/** Banners promocionais avulsos — não são jogos, só imagem+link. */
 export function PromoBanners() {
   const promos = usePromos();
   if (promos.length === 0) return null;
