@@ -32,6 +32,12 @@ function buildEmbed(app: GameApp) {
         description: linksText || "Nenhum link direto cadastrado.",
         color: 0xdc263c,
         thumbnail: app.icon ? { url: app.icon } : undefined,
+        image: app.banner ? { url: app.banner } : undefined,
+        fields: [
+          app.category ? { name: "Gênero", value: app.category, inline: true } : null,
+          app.version ? { name: "Versão", value: app.version, inline: true } : null,
+          app.size ? { name: "Tamanho", value: app.size, inline: true } : null,
+        ].filter(Boolean),
         footer: { text: "WhiteZ Android · link direto" },
       },
     ],
