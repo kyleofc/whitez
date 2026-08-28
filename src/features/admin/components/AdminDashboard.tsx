@@ -10,6 +10,7 @@ import { AdminLogin } from "./AdminLogin";
 import { useStore } from "@/features/store/StoreProvider";
 import { deleteApp, setFeatured } from "@/features/catalog/api";
 import { announceOnDiscord } from "@/features/admin/discordWebhook";
+import { announceDirectOnDiscord } from "@/features/admin/discordDirectWebhook";
 import type { GameApp } from "@/features/catalog/types";
 
 export function AdminDashboard() {
@@ -49,6 +50,15 @@ export function AdminDashboard() {
     const result = await announceOnDiscord(app);
     if (result.ok) {
       toast.success("Aviso reenviado para o Discord!");
+    } else {
+      toast.error(result.error || "Não foi possível reenviar.");
+    }
+  };
+
+  const resendDirect = async (app: GameApp) => {
+    const result = await announceDirectOnDiscord(app);
+    if (result.ok) {
+      toast.success("Link direto reenviado para o Discord!");
     } else {
       toast.error(result.error || "Não foi possível reenviar.");
     }
@@ -122,6 +132,11 @@ export function AdminDashboard() {
                       icon="campaign"
                       label="Reenviar aviso no Discord"
                       onClick={() => void resendApp(app)}
+                    />
+                    <IconBtn
+                      icon="link"
+                      label="Reenviar link direto no Discord"
+                      onClick={() => void resendDirect(app)}
                     />
                     <IconBtn icon="edit" label="Editar" onClick={() => openEditForm(app)} />
                     <IconBtn
