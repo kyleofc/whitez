@@ -35,43 +35,27 @@ function usePromos(): { promos: Promo[]; error: string | null; loaded: boolean }
   return { promos, error, loaded };
 }
 
-/** Banners promocionais avulsos — não são jogos, só imagem+link. */
+/** Banners promocionais avulsos — mesmo visual do carrossel de fixados. */
 export function PromoBanners() {
-  const { promos, error, loaded } = usePromos();
+  const { promos, error } = usePromos();
 
-  if (error) {
-    return (
-      <div className="mb-10 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
-        Erro ao carregar /promos: {error}
-      </div>
-    );
-  }
-
-  if (loaded && promos.length === 0) {
-    return (
-      <div className="mb-10 rounded-2xl border border-border bg-surface p-4 text-xs text-muted-foreground">
-        (debug) /promos carregou, mas veio vazio — confira o campo "order" nos documentos.
-      </div>
-    );
-  }
-
-  if (promos.length === 0) return null;
+  if (error || promos.length === 0) return null;
 
   return (
-    <div className="mb-10 grid gap-4 sm:grid-cols-2">
+    <div className="scrollbar-none mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
       {promos.map((promo) => (
         <a
           key={promo.id}
           href={promo.linkUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block overflow-hidden rounded-2xl border border-border bg-surface transition-transform hover:scale-[1.01]"
+          className="relative aspect-[16/10] w-full shrink-0 snap-center overflow-hidden rounded-3xl border border-border bg-surface shadow-lift transition-transform hover:scale-[1.01] sm:aspect-[21/8]"
         >
           <img
             src={promo.bannerUrl}
             alt="Promo"
             loading="lazy"
-            className="aspect-[16/7] w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </a>
       ))}
