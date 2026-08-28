@@ -9,21 +9,52 @@ interface Promo {
   order?: number;
 }
 
-function usePromos(): Promo[] {
+function usePromos(): { promos: Promo[]; error: string | null; loaded: boolean } {
   const [promos, setPromos] = useState<Promo[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     const q = query(collection(getDb(), "promos"), orderBy("order", "asc"));
-    return onSnapshot(q, (snap) => {
-      const next: Promo[] = [];
-      snap.forEach((d) => next.push({ id: d.id, ...(d.data() as object) } as Promo));
-      setPromos(next);
-    });
+    return onSnapshot(
+      q,
+      (snap) => {
+        const next: Promo[] = [];
+        snap.forEach((d) => next.push({ id: d.id, ...(d.data() as object) } as Promo));
+        setPromos(next);
+        setLoaded(true);
+        setError(null);
+      },
+      (err) => {
+        setError(err.message);
+        setLoaded(true);
+      },
+    );
   }, []);
-  return promos;
+
+  return { promos, error, loaded };
 }
 
+/** Banners promocionais avulsos — não são jogos, só imagem+link. */
 export function PromoBanners() {
-  const promos = usePromos();
+  const { promos, error, loaded } = usePromos();
+
+  if (error) {
+    return (
+      <div className="mb-10 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+        Erro ao carregar /promos: {error}
+      </div>
+    );
+  }
+
+  if (loaded && promos.length === 0) {
+    return (
+      <div className="mb-10 rounded-2xl border border-border bg-surface p-4 text-xs text-muted-foreground">
+        (debug) /promos carregou, mas veio vazio — confira o campo "order" nos documentos.
+      </div>
+    );
+  }
+
   if (promos.length === 0) return null;
 
   return (
