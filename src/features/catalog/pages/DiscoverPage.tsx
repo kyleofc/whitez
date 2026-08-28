@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { FeaturedHero } from "@/features/catalog/components/FeaturedHero";
+import { PromoBanners } from "@/features/catalog/components/PromoBanners";
 import { GameRow } from "@/features/catalog/components/GameRow";
 import { GameCard } from "@/features/catalog/components/GameCard";
 import { SectionHeader } from "@/features/catalog/components/SectionHeader";
@@ -124,6 +125,8 @@ export function DiscoverPage() {
           <FeaturedHero apps={featured} onOpen={openApp} />
         </section>
       ) : null}
+
+      <PromoBanners />
 
       <GameRow
         title="Melhores Jogos"
