@@ -18,7 +18,6 @@ async function getWebhookUrl(): Promise<string | null> {
 
 function buildEmbed(app: GameApp) {
   const links = (app.directLinks || []).filter((l) => l?.url);
-  const primary = links[0]?.url || "";
 
   const linksText = links
     .map((l, i) => `[${l.name || `Link ${i + 1}`}](${l.url})`)
@@ -28,7 +27,6 @@ function buildEmbed(app: GameApp) {
     embeds: [
       {
         title: app.title,
-        url: primary || undefined,
         description: linksText || "Nenhum link direto cadastrado.",
         color: 0xdc263c,
         thumbnail: app.icon ? { url: app.icon } : undefined,
