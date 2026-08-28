@@ -31,6 +31,13 @@ function buildEmbed(app: GameApp) {
           app.category ? { name: "Gênero", value: app.category, inline: true } : null,
           app.version ? { name: "Versão", value: app.version, inline: true } : null,
           app.size ? { name: "Tamanho", value: app.size, inline: true } : null,
+          app.architecture?.length
+            ? {
+                name: "Arquitetura",
+                value: app.architecture.map((a) => `${a} BITS`).join(", "),
+                inline: true,
+              }
+            : null,
         ].filter(Boolean),
         footer: { text: "WhiteZ Android" },
       },
