@@ -71,7 +71,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
             href={DISCORD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2.5 text-sm font-bold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] active:scale-95"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-primary/50 bg-primary/10 px-3 py-2.5 text-sm font-bold text-primary transition-colors hover:bg-primary/15"
           >
             <Icon name="forum" size={20} />
             Discord

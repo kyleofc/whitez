@@ -30,7 +30,7 @@ export function AppHeader({ onOpenSidebar }: AppHeaderProps) {
             className="flex min-w-0 items-center gap-2.5"
             aria-label="Ir para o início"
           >
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-linear-to-br from-primary to-primary-soft text-sm font-black text-primary-foreground shadow-glow">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-linear-to-br from-primary to-primary-soft text-sm font-black text-primary-foreground">
               W
             </span>
             <span className="hidden min-w-0 flex-col text-left sm:flex">
