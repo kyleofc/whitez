@@ -75,7 +75,7 @@ export const GameCard = memo(function GameCard({
         aria-pressed={isFavorite}
         aria-label={isFavorite ? `Remover ${app.title} dos favoritos` : `Favoritar ${app.title}`}
         className={cn(
-          "absolute top-2 right-2 grid h-9 w-9 place-items-center rounded-full border border-border bg-background/70 backdrop-blur-md transition-colors duration-150 hover:bg-background",
+          "absolute top-2 right-2 grid h-9 w-9 place-items-center rounded-full border border-border bg-background/90 transition-colors duration-150 hover:bg-background",
           isFavorite ? "text-primary" : "text-muted-foreground",
         )}
       >
