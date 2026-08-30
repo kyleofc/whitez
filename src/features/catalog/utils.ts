@@ -7,11 +7,11 @@ export function toDate(value?: FirestoreTimestampLike | null): Date | null {
   return null;
 }
 
-/** Um jogo é "novo" se foi publicado nos últimos 7 dias. */
+/** Um jogo é "novo" se foi publicado nas últimas 24 horas. */
 export function isNewApp(app: GameApp): boolean {
   const date = toDate(app.createdAt);
   if (!date) return false;
-  return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) <= 7;
+  return (Date.now() - date.getTime()) / (1000 * 60 * 60 * 24) <= 1;
 }
 
 /** PRNG com seed — a mesma seed sempre produz a mesma sequência. */
