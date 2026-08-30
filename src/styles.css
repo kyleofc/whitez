@@ -167,8 +167,7 @@
 }
 
 @utility glass-bar {
-  background-color: color-mix(in oklab, var(--background) 78%, transparent);
-  backdrop-filter: blur(18px) saturate(150%);
+  background-color: color-mix(in oklab, var(--background) 96%, transparent);
   border-bottom: 1px solid var(--border);
 }
 
