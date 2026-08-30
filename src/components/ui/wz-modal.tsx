@@ -17,11 +17,34 @@ export function WzModal({ open, onClose, children, labelledBy, className }: WzMo
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const scrollY = window.scrollY;
+    const body = document.body.style;
+    const prev = {
+      position: body.position,
+      top: body.top,
+      left: body.left,
+      right: body.right,
+      width: body.width,
+      overflow: body.overflow,
+    };
+
+    body.position = "fixed";
+    body.top = `-${scrollY}px`;
+    body.left = "0";
+    body.right = "0";
+    body.width = "100%";
+    body.overflow = "hidden";
+
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      body.position = prev.position;
+      body.top = prev.top;
+      body.left = prev.left;
+      body.right = prev.right;
+      body.width = prev.width;
+      body.overflow = prev.overflow;
+      window.scrollTo(0, scrollY);
     };
   }, [open, onClose]);
 
