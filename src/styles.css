@@ -56,9 +56,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.4), 0 8px 24px -12px oklch(0 0 0 / 0.6);
-  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.35), 0 24px 48px -20px oklch(0 0 0 / 0.75);
-  --shadow-glow: 0 8px 30px -8px oklch(0.55 0.223 21 / 0.45);
+  --shadow-soft: 0 1px 2px oklch(0.145 0.006 300 / 0.5), 0 8px 24px -12px oklch(0.1 0.02 21 / 0.55);
+  --shadow-lift: 0 2px 4px oklch(0.145 0.006 300 / 0.45), 0 24px 48px -20px oklch(0.08 0.03 21 / 0.7);
+  --shadow-glow: 0 10px 32px -8px oklch(0.577 0.223 21 / 0.5);
 }
 
 :root {
