@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDb, getFirebaseAuth } from "@/lib/firebase";
 import { useFavorites } from "@/features/favorites/useFavorites";
@@ -43,8 +43,9 @@ interface StoreValue {
 
 const StoreContext = createContext<StoreValue | null>(null);
 
+/** SHA-256 da palavra-chave secreta — nunca fica em texto puro no bundle. */
 const ADMIN_SEARCH_CODE_HASH =
-  "6d39f6b98015c1158fbff51a2dc5a68abffeb5ebc32da3a51defc2bc26c0a3a0";
+  "26c76b75ec584d3d823525951d3d1bd63c720ae3d0d1ce285c6bd3fbb407b274";
 
 async function sha256Hex(text: string): Promise<string> {
   const data = new TextEncoder().encode(text);
@@ -67,9 +68,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
+  // Listeners realtime do Firestore (apps + gêneros)
   useEffect(() => {
     const db = getDb();
-    const unsubApps = onSnapshot(collection(db, "apps"), (snapshot) => {
+    const appsQuery = query(collection(db, "apps"), orderBy("createdAt", "desc"));
+    const unsubApps = onSnapshot(appsQuery, (snapshot) => {
       const next: GameApp[] = [];
       snapshot.forEach((d) => next.push({ id: d.id, ...(d.data() as object) } as GameApp));
       setApps(next);
@@ -87,6 +90,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // Estado de autenticação do admin
   useEffect(() => {
     return onAuthStateChanged(getFirebaseAuth(), (user) => setIsAdmin(!!user));
   }, []);
