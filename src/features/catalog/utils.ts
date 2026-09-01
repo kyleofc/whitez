@@ -69,14 +69,15 @@ export function orderGenresForApps(apps: GameApp[], genres: Genre[]): string[] {
   ];
 }
 
-export function getRecentApps(apps: GameApp[], count = 12): GameApp[] {
-  return [...apps]
+/** "Lançamentos recentes" = jogos publicados nas últimas 24 horas. */
+export function getRecentApps(apps: GameApp[]): GameApp[] {
+  return apps
+    .filter(isNewApp)
     .sort((a, b) => {
       const da = toDate(a.createdAt)?.getTime() ?? 0;
       const db = toDate(b.createdAt)?.getTime() ?? 0;
       return db - da;
-    })
-    .slice(0, count);
+    });
 }
 
 export function formatArchitecture(app: GameApp): string {
