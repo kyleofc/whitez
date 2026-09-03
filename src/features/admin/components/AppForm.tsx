@@ -5,7 +5,6 @@ import { WzButton } from "@/components/ui/wz-button";
 import { Field, WzInput, WzSelect, WzTextarea } from "@/components/ui/wz-field";
 import { createApp, updateApp } from "@/features/catalog/api";
 import { announceOnDiscord } from "@/features/admin/discordWebhook";
-import { announceOnDiscordSecondary } from "@/features/admin/discordWebhookSecondary";
 import { announceDirectOnDiscord } from "@/features/admin/discordDirectWebhook";
 import type { DownloadLink, GameApp, Genre } from "@/features/catalog/types";
 
@@ -84,9 +83,6 @@ export function AppForm({ genres, editing, onDone }: AppFormProps) {
         const newApp = { id: ref.id, ...payload } as GameApp;
         void announceOnDiscord(newApp).then((r) => {
           if (!r.ok) toast.error(r.error || "Falha ao avisar o Discord.");
-        });
-        void announceOnDiscordSecondary(newApp).then((r) => {
-          if (!r.ok) toast.error(r.error || "Falha ao avisar o segundo servidor do Discord.");
         });
         if (newApp.directLinks?.length) {
           void announceDirectOnDiscord(newApp).then((r) => {
